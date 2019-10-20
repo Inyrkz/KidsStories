@@ -11,8 +11,8 @@ def user_age(age):
     Function to get age of user and display books available for that age
     '''
     #Reading the dataset
-    age_int = pd.read_csv(r'C:\Users\AFFIA\Desktop\Age_interaction.csv', encoding = 'latin-1')
-    stories = pd.read_csv(r'C:\Users\AFFIA\Desktop\Kidstories.csv', encoding = 'latin-1')
+    age_int = pd.read_csv(Age_interaction.csv)
+    stories = pd.read_csv(Kidstories.csv)
     #Let's preview the first few rows of the data
     #print(STORIES.head())
     #AGE_INTERACTIONS.head()
