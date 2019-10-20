@@ -1,10 +1,8 @@
 '''runnig flask app'''
 import pickle
 import json
-import pandas as pd
 from flask import Flask, jsonify, request
-#from k_tories import MY_AGE, INFO, AGE_INT, STORIES, BOOKS, LENGTH
-#from ks2 import user_age
+from ks2 import user_age
 
 
 #load model
@@ -17,24 +15,19 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def predict():
     '''function to predict'''
-    age_int = pd.read_csv(r'C:\Users\AFFIA\Desktop\Age_interaction.csv', encoding = 'latin-1')
-    stories = pd.read_csv(r'C:\Users\AFFIA\Desktop\Kidstories.csv', encoding = 'latin-1')
     data = request.get_json(force=True)
+    #convert json to dictionary
     data = json.loads(data)
-    age = data['Age']
-    books = AGE_INT.loc[age_int.Age == age, :].sort_values('Book_ID', ascending = False)
-    info = pd.merge(books, stories, on = 'Book_ID')
-    info = info.sort_values(['Likes', 'Dislikes'], ascending=[False, True])
-    info = info.loc[:, ['Title']]
+    #get int value from the 'Age' key in the dictionary
+    age = int(data['Age'])
+    output = user_age(age)
     #COnvet dataframe to dictionary
-    info = info.set_index('Title').T.to_dict('list')
+    output = output.set_index('Title').T.to_dict('list')
     #CONVERT dict to json
     #result = json.dumps(INFO)
-    result = jsonify(info)
-    return result
-    # return user_age(MY_AGE['Age'])
-    #converts the json to python dictionary
-    #MY_AGE = json.loads(MY_AGE)
+    result = jsonify(output)
+    output = {'results': result[0]}
+    return output
     #INFO datafram will be converted to json
     #INFO = INFO.to_json(orient='records')
    #get data
