@@ -1,7 +1,6 @@
 '''runnig flask app'''
 import pickle
 import json
-import flask
 from flask import Flask, jsonify, request
 from ks2 import user_age
 
