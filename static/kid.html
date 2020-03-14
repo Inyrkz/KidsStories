@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kids' Stories Recommender</title>
+        <style>
+            *{
+                font-size:30px;
+            }
+            </style>
+            </head>
+            <body>
+                <input id="age-input" type="number"/>
+                <button id="age-button">Submit Age</button>
+                <p id="reply"></p>
+
+                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                <script>
+                    $("#age-button").click(function(event){
+                        let message = {
+                            age: $("#age-input").val()
+                        }
+                        $.post("http://127.0.0.1:5000/", JSON.stringify(message), function(response){
+                            $("#reply").text(response.reply);
+                    });
+                });
+                    </script>
+            </body>
+            </html>
+
+
+
+
